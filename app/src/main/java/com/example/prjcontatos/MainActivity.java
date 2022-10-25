@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.os.Bundle;
@@ -59,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
                 SimpleAdapter adapter = new SimpleAdapter(getBaseContext(), contactList, layout, from, to);
                 listView.setAdapter(adapter);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(getBaseContext(), contactList.get(i).get("phone"), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
