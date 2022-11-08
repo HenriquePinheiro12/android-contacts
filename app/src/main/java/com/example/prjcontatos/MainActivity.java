@@ -21,7 +21,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     Button registerBtn, getContactBtn;
-    EditText nameInput, phoneInput;
+    EditText nameInput, phoneInput, dateInput;
     ListView listView;
 
     ArrayList<HashMap<String, String>> contactList = new ArrayList<>();
@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
         registerBtn = findViewById(R.id.registerBtn);
         getContactBtn = findViewById(R.id.getContactBtn);
         nameInput = findViewById(R.id.nameInput);
+        dateInput = findViewById(R.id.dateInput);
         phoneInput = findViewById(R.id.phoneInput);
+
         listView = findViewById(R.id.listView);
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
@@ -43,10 +45,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = nameInput.getText().toString();
                 String phone = phoneInput.getText().toString();
+                String birthday = dateInput.getText().toString();
 
                 HashMap<String, String> contact = new HashMap<>();
                 contact.put("name", name);
                 contact.put("phone", phone);
+                contact.put("birthday", birthday);
                 contactList.add(contact);
             }
         });
@@ -54,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         getContactBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // aniversários no próximo mês apenas
+
                 int layout = android.R.layout.simple_list_item_2;
                 String[] from = new String[] { "name", "phone" };
                 int[] to = new int[] { android.R.id.text1,  android.R.id.text2 };
@@ -64,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(getBaseContext(), contactList.get(i).get("phone"), Toast.LENGTH_SHORT).show();
+                        // mostrar nome, data do próximo aniversário, nova idade, dias restantes
+                        Toast.makeText(getBaseContext(), contactList.get(i).get("birthday"), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
